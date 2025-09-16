@@ -8,6 +8,7 @@ import br.com.microservices.choreography.productvalidationservice.core.model.Val
 import br.com.microservices.choreography.productvalidationservice.core.producer.KafkaProducer;
 import br.com.microservices.choreography.productvalidationservice.core.repositories.ProductRepository;
 import br.com.microservices.choreography.productvalidationservice.core.repositories.ValidationRepository;
+import br.com.microservices.choreography.productvalidationservice.core.saga.SagaExecutionController;
 import br.com.microservices.choreography.productvalidationservice.core.utils.JsonUtil;
 import br.com.microservices.choreography.productvalidationservice.config.exception.ValidationException;
 import lombok.AllArgsConstructor;
@@ -24,10 +25,7 @@ public class ProductValidationService {
     private static final String CURRENT_SOURCE = "PRODUCT_VALIDATION_SERVICE";
     /*é um estático porque só vamos usar aqui*/
 
-    private final JsonUtil jsonUtil;
-
-
-    private final KafkaProducer producer;
+    private final SagaExecutionController sagaExecutionController;
 
     private final ProductRepository productRepository; /*banco de dados do produto*/
     private final ValidationRepository validationRepository; /*para verificar
@@ -60,7 +58,7 @@ public class ProductValidationService {
            pedido de rollback que vai ser realizado em outro método rollBack */
         }
 
-        producer.sendEvent(jsonUtil.toJson(event), ""); /*criar um tópico
+        sagaExecutionController.handleSaga(event); /*criar um tópico
         pegando o evento já atualizado
          após a validação e o producer vai mandar esse tópico para orchestrador*/
 
@@ -179,7 +177,7 @@ public class ProductValidationService {
         com o nome do tópico do product servic*/
         addHistory(event, "Rollback executed on product validation"); /*
         adicionando histórico ao evento e mensagem de validação de sucesso*/
-        producer.sendEvent(jsonUtil.toJson(event), ""); /*envia o evento
+        sagaExecutionController.handleSaga(event); /*envia o evento
         de volta  atualizado para o producer*/
 
     }

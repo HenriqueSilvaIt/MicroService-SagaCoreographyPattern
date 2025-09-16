@@ -9,6 +9,7 @@ import br.com.microservices.choreography.paymentservice.core.enums.ESagaStatus;
 import br.com.microservices.choreography.paymentservice.core.model.Payment;
 import br.com.microservices.choreography.paymentservice.core.producer.KafkaProducer;
 import br.com.microservices.choreography.paymentservice.core.repositories.PaymentRepository;
+import br.com.microservices.choreography.paymentservice.core.saga.SagaExecutionController;
 import br.com.microservices.choreography.paymentservice.core.utils.JsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,7 @@ public class PaymentService {
 
     private static final Double MIN_AMOUNT_VALUE = 0.1;
 
-    private final JsonUtil jsonUtil;
-
-    private final KafkaProducer producer;
+    private final SagaExecutionController sagaexecutionController;
 
     private final PaymentRepository paymentRepository;
 
@@ -58,7 +57,7 @@ public class PaymentService {
             com informações que deu erro*/
         }
 
-        producer.sendEvent(jsonUtil.toJson(event), ""); /*criar um tópico
+        sagaexecutionController.handleSaga(event); /*criar um tópico
         pegando o evento já atualizado
          do pagamentp  mandando para o producer que vai voltar esse tópico para orchestrador*/
     }
@@ -180,7 +179,7 @@ public class PaymentService {
          ou outra coisa*/
             }
 
-        producer.sendEvent(jsonUtil.toJson(event), "");
+        sagaexecutionController.handleSaga(event);
     }
 
     private  void changePaymentStatusToRefund(Event event) {

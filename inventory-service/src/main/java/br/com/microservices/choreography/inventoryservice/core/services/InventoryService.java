@@ -11,6 +11,7 @@ import br.com.microservices.choreography.inventoryservice.core.model.OrderInvent
 import br.com.microservices.choreography.inventoryservice.core.producer.KafkaProducer;
 import br.com.microservices.choreography.inventoryservice.core.repositories.InventoryRepository;
 import br.com.microservices.choreography.inventoryservice.core.repositories.OrderInventoryRepository;
+import br.com.microservices.choreography.inventoryservice.core.saga.SagaExecutionController;
 import br.com.microservices.choreography.inventoryservice.core.utils.JsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,7 @@ public class InventoryService {
 
     private static final String CURRENT_SOURCE = "INVENTORY_SERVICE";
 
-    private final JsonUtil jsonUtil;
-
-    private final KafkaProducer producer;
+    private final SagaExecutionController sagaexecutionController;
 
     private final InventoryRepository inventoryRepository;
 
@@ -46,7 +45,7 @@ public class InventoryService {
             no inventory e atualiza o histórico do evento
             com informações que deu erro*/
         }
-        producer.sendEvent(jsonUtil.toJson(event), "");
+        sagaexecutionController.handleSaga(event);
 
     }
 
@@ -130,7 +129,7 @@ public class InventoryService {
          ou outra coisa*/
         }
 
-        producer.sendEvent(jsonUtil.toJson(event), "");
+        sagaexecutionController.handleSaga(event);
 
     }
 
