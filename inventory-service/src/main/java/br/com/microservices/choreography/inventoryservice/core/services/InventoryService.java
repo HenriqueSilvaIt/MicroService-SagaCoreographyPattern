@@ -46,7 +46,7 @@ public class InventoryService {
             no inventory e atualiza o histórico do evento
             com informações que deu erro*/
         }
-        producer.sendEvent(jsonUtil.toJson(event));
+        producer.sendEvent(jsonUtil.toJson(event), "");
 
     }
 
@@ -130,7 +130,7 @@ public class InventoryService {
          ou outra coisa*/
         }
 
-        producer.sendEvent(jsonUtil.toJson(event));
+        producer.sendEvent(jsonUtil.toJson(event), "");
 
     }
 

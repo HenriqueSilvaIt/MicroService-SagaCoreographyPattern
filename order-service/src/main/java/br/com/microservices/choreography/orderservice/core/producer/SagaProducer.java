@@ -19,25 +19,25 @@ public class SagaProducer {
     instanciar um valor para e o @RequiredArgsConstructor  instancia um construtor
       apenas com os valores final que definimos na nossa classe*/
 
-    @Value("${spring.kafka.topic.start-saga}") /*como ele é
+    @Value("${spring.kafka.topic.product-validation-start}") /*como ele é
     do application.yl ele é gerenciado pelo spring e n da classe por isso
     que estamos usando  @RequiredArgsConstructor para que injete(crie construtor
      ) só os atributos
     com final, porque esse atributo n pode ter construtor porque ele é to spring
     por isso n usamos o @AllArg se n ele cria um construtor com todos os atributo*/
-    private String startSagaTopic;
+    private String productValidationStartTopic;
 
     public void sendEvent(String payload) {
         try {
-            log.info("Sending event to topic {} with data {}", startSagaTopic, payload);
+            log.info("Sending event to topic {} with data {}", productValidationStartTopic, payload);
             /*envio do evento*/
-            kafkaTemplate.send(startSagaTopic, payload); /*send recebe o nome do tópico e o payload*/
+            kafkaTemplate.send(productValidationStartTopic, payload); /*send recebe o nome do tópico e o payload*/
                 /*é possível vocÊ trabalhar com partição também (msa o nosso n tem replica nem partições)
                 * pssando partição e a chave e valor dela no send
                * send(String topic, Integer partition, Long timestamp, K key, @Nullable V data)*/
         } catch (Exception e ) {
             /*vai mostrar porque deu erro ao enviar o evento*/
-            log.error("Error trying to send data to topic {} with data {}", startSagaTopic, payload, e);
+            log.error("Error trying to send data to topic {} with data {}", productValidationStartTopic, payload, e);
         }
     }
 

@@ -66,30 +66,11 @@ para o producer*/{
         * com os dados do pedido */
        // Event event = createPayload(order);
         /*envia o evento*/
-        producer.sendEvent(jsonUtil.toJson(createPayload(order)));/*converte para Json(string e envia o evento)*/
+        producer.sendEvent(jsonUtil.toJson(eventService.createEvent(order)));/*converte para Json(string e envia o evento)*/
         return order; /*retorna o objeto criado com id do mongodb*/
 
     }
 
-    /*Método que vai circula o evento json do order para
-    *    outros serviços*/
-    private Event createPayload(Order order) {
-
-        Event event = Event
-                .builder() /*vem do @Builder que colocamos na entidade*/
-                .orderId(order.getId()) /*como no método acima já salvamos o pedido
-                no banco de dados, podemos pegar o pedido direto da entidade*/
-                .transactionId(order.getTransactionId()) /*pegamos o mesmo do pedido no banco*/
-                .payload(order) /*json passamos o mesmo do order*/
-                .createdAt(LocalDateTime.now()) /* ela vai pegar o instant em que for criado esse evento*/
-                .build();
-
-
-                eventService.save(event); /*salvando o evento no banco
-                mongo db, com as informações acima prenchida*/
-
-        return event; /*retorna o evento*/
-    }
 
 
 }

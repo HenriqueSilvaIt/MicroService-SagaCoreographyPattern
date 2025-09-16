@@ -58,7 +58,7 @@ public class PaymentService {
             com informações que deu erro*/
         }
 
-        producer.sendEvent(jsonUtil.toJson(event)); /*criar um tópico
+        producer.sendEvent(jsonUtil.toJson(event), ""); /*criar um tópico
         pegando o evento já atualizado
          do pagamentp  mandando para o producer que vai voltar esse tópico para orchestrador*/
     }
@@ -180,7 +180,7 @@ public class PaymentService {
          ou outra coisa*/
             }
 
-        producer.sendEvent(jsonUtil.toJson(event));
+        producer.sendEvent(jsonUtil.toJson(event), "");
     }
 
     private  void changePaymentStatusToRefund(Event event) {
