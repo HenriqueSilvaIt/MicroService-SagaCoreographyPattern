@@ -32,8 +32,8 @@ public class KafkaConfig {
     private static final Integer PARTITION_COUNT = 1; /*Qtd de partições estátic*/
     private static final Integer REPLICA_COUNT = 1; /*Qtd de replica*/
 
-    @Value("${spring.kafka.topic.start-saga}")
-    private String startSagaTopic; /*pega o nome do tópico passado no application.yl*/
+    @Value("${spring.kafka.topic.product-validation-start}")
+    private String productValidationStartTopic; /*pega o nome do tópico passado no application.yl*/
 
     @Value("${spring.kafka.topic.notify-ending}")
     private String notifyEnding; /*pega o nome do tópico passado no application.yl*/
@@ -174,9 +174,9 @@ produzindo, é serializar, porque vamos estar serializando a informação
 
 
     @Bean /*método tópico startSaga*/
-    public NewTopic startSagaTopic() {
+    public NewTopic productValidationStartTopic() {
 
-        return buildTopic(startSagaTopic); /*cria um tópico
+        return buildTopic(productValidationStartTopic); /*cria um tópico
          pegando o nome lá do application.yl
         e usando o método buildTopic daqui da classe para criar o tópico*/
     }

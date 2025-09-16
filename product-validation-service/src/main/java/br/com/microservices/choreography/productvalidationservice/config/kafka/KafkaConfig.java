@@ -31,14 +31,20 @@ public class KafkaConfig {
     private static final Integer PARTITION_COUNT = 1; /*Qtd de partições estátic*/
     private static final Integer REPLICA_COUNT = 1; /*Qtd de replica*/
 
-    @Value("${spring.kafka.topic.orchestrator}")
-    private String orchestratorTopic; /*pega o nome do tópico passado no application.yl*/
-
-    @Value("${spring.kafka.topic.product-validation-success}")
-    private String productValidationSuccessTopic; /*pega o nome do tópico passado no application.yl*/
+    @Value("${spring.kafka.topic.product-validation-start}")
+    private String productValidationStartTopic; /*pega o nome do tópico passado no application.yl*/
 
     @Value("${spring.kafka.topic.product-validation-fail}")
     private String productValidationFailTopic; /*pega o nome do tópico passado no application.yl*/
+
+
+    @Value("${spring.kafka.topic.payment-success}")
+    private String paymentSuccessTopic; /*pega o nome do tópico passado no application.yl*/
+
+
+    @Value("${spring.kafka.topic.notify-ending}")
+    private String notifyEndingTopic; /*pega o nome do tópico passado no application.yl*/
+
 
 
 
@@ -176,28 +182,38 @@ produzindo, é serializar, porque vamos estar serializando a informação
     }
 
 
-    @Bean /*método tópico startSaga*/
-    public NewTopic orchestratorTopic() {
 
-        return buildTopic(orchestratorTopic); /*cria um tópico
+
+    @Bean /*método tópico startSaga*/
+    public NewTopic productValidationStartTopic() {
+
+        return buildTopic(productValidationStartTopic); /*cria um tópico
          pegando o nome lá do application.yl
         e usando o método buildTopic daqui da classe para criar o tópico*/
     }
 
 
-    @Bean /*método tópico startSaga*/
-    public NewTopic productValidationSuccessTopic() {
+        @Bean /*método tópico startSaga*/
+        public NewTopic productValidationFailTopic() {
 
-        return buildTopic(productValidationSuccessTopic); /*cria um tópico
+            return buildTopic(productValidationFailTopic); /*cria um tópico
+             pegando o nome lá do application.yl
+            e usando o método buildTopic daqui da classe para criar o tópico*/
+        }
+
+
+    @Bean /*método tópico startSaga*/
+    public NewTopic paymentSuccessTopic() {
+
+        return buildTopic(paymentSuccessTopic); /*cria um tópico
          pegando o nome lá do application.yl
         e usando o método buildTopic daqui da classe para criar o tópico*/
     }
 
-
     @Bean /*método tópico startSaga*/
-    public NewTopic productValidationFailTopic() {
+    public NewTopic notifyEndingTopic() {
 
-        return buildTopic(productValidationFailTopic); /*cria um tópico
+        return buildTopic(notifyEndingTopic); /*cria um tópico
          pegando o nome lá do application.yl
         e usando o método buildTopic daqui da classe para criar o tópico*/
     }
