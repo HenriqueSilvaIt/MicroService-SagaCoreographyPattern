@@ -5,9 +5,11 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_BROKER:localhost:9092}
     topic:
-      orchestrator: orchestrator
       payment-success: payment-success
       payment-fail: payment-fail
+      product-validation-fail: product-validation-fail #Caso der erro ele volta para o product-fail
+      inventory-success: inventory-success #Para seguir a saga
+
     consumer:
       group-id: payment-group
       auto-offset-reset: latest
