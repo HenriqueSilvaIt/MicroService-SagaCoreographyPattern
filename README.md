@@ -1,4 +1,4 @@
-# Projeto: Arquitetura de Microsserviços: Padrão Saga Orquestrado (AULA BÔNUS)
+# Projeto: Arquitetura de Microsserviços: Padrão Saga Orquestrado
 
 ## Convertendo o projeto Saga Orquestrado para Saga Coreografado
 
@@ -354,4 +354,5 @@ Para realizar queries e validar se os dados existem:
 
 ### Victor Hugo Negrisoli
 ### Desenvolvedor de Software Back-End
+
 
