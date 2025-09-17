@@ -1,16 +1,8 @@
-# Projeto: Curso Udemy - Arquitetura de Microsserviços: Padrão Saga Orquestrado (AULA BÔNUS)
+# Projeto: Arquitetura de Microsserviços: Padrão Saga Orquestrado (AULA BÔNUS)
 
 ## Convertendo o projeto Saga Orquestrado para Saga Coreografado
 
-Repositório contendo o projeto de AULA BÔNUS desenvolvido do curso Arquitetura de Microsserviços: Padrão Saga Orquestrado, ministrado por mim para a plataforma **Udemy**.
-
-O projeto todo foi utilizando a abordagem de Saga Orquestrado, e pode ser visualizado [neste repositório](https://github.com/vhnegrisoli/curso-udemy-microsservicos-padrao-saga-orquestrado/), porém,
-ao final do curso, foi também incluída uma seção de aula bônus, ensinando aos alunos a como
-converter a arquitetura desenvolvida em um Padrão Saga Coreografado, para endenter a implementação e execução de Coreografia na Saga.
-
-Para acessar o curso na plataforma, basta acessar esta URL: https://www.udemy.com/course/arquitetura-de-microsservicos-padrao-saga-orquestrado/
-
-![Arquitetura](Conte%C3%BAdos/Imagem%20Curso.png)
+![Arquitetura](https://github.com/HenriqueSilvaIt/Assets/blob/main/l/Imagem%20Curso.png)
 
 ### Sumário:
 
@@ -54,11 +46,9 @@ Para acessar o curso na plataforma, basta acessar esta URL: https://www.udemy.co
 
 ## Arquitetura Proposta
 
-[Voltar ao início](#sum%C3%A1rio)
-
 No curso, desenvolveremos a seguinte aquitetura:
 
-![Arquitetura](Conte%C3%BAdos/Arquitetura%20Proposta.png)
+![Arquitetura](https://github.com/HenriqueSilvaIt/Assets/blob/main/Arquitetura%20Propost.png)
 
 Em nossa arquitetura, teremos 4 serviços:
 
@@ -153,7 +143,7 @@ http://localhost:3000/swagger-ui.html
 
 Você chegará nesta página:
 
-![Swagger](Conte%C3%BAdos/Documentacao.png)
+![Swagger](https://github.com/HenriqueSilvaIt/Assets/blob/main/l/Documentacao.png)
 
 As aplicações executarão nas seguintes portas:
 
@@ -178,7 +168,7 @@ http://localhost:8081
 
 Você chegará nesta página:
 
-![Redpanda](Conte%C3%BAdos/Redpanda%20Kafka.png)
+![Redpanda](https://github.com/HenriqueSilvaIt/Assets/blob/main/l/Redpanda%20Kafka.png)
 
 ## Dados da API
 
@@ -364,3 +354,4 @@ Para realizar queries e validar se os dados existem:
 
 ### Victor Hugo Negrisoli
 ### Desenvolvedor de Software Back-End
+
