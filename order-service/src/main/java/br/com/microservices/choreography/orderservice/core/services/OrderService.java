@@ -41,7 +41,7 @@ para o producer*/{
     *    retorna um pedido*/
     public Order createOrder(OrderDTO orderDto) {
 
-        var order = Order
+        Order order = Order
                 .builder() /*vem do @Builder que colocamos na entidade*/
                 .products(orderDto.getProducts()) /*recebe uma lista de produto do OrderDTO que cliente mando*/
                 .createAt(LocalDateTime.now()) /*instante atual*/

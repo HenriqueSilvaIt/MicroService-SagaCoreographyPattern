@@ -8,11 +8,9 @@ import br.com.microservices.choreography.inventoryservice.core.dto.OrderProducts
 import br.com.microservices.choreography.inventoryservice.core.enums.ESagaStatus;
 import br.com.microservices.choreography.inventoryservice.core.model.Inventory;
 import br.com.microservices.choreography.inventoryservice.core.model.OrderInventory;
-import br.com.microservices.choreography.inventoryservice.core.producer.KafkaProducer;
 import br.com.microservices.choreography.inventoryservice.core.repositories.InventoryRepository;
 import br.com.microservices.choreography.inventoryservice.core.repositories.OrderInventoryRepository;
 import br.com.microservices.choreography.inventoryservice.core.saga.SagaExecutionController;
-import br.com.microservices.choreography.inventoryservice.core.utils.JsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
