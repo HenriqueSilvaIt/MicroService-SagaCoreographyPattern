@@ -1,7 +1,16 @@
-# Projeto: Arquitetura de Microsserviços: Padrão Saga Orquestrado
+# Projeto: Curso Udemy - Arquitetura de Microsserviços: Padrão Saga Orquestrado (AULA BÔNUS)
 
+## Convertendo o projeto Saga Orquestrado para Saga Coreografado
 
-![Arquitetura](https://github.com/HenriqueSilvaIt/Assets/blob/main/l/Imagem%20Curso.png)
+Repositório contendo o projeto de AULA BÔNUS desenvolvido do curso Arquitetura de Microsserviços: Padrão Saga Orquestrado, ministrado por mim para a plataforma **Udemy**.
+
+O projeto todo foi utilizando a abordagem de Saga Orquestrado, e pode ser visualizado [neste repositório](https://github.com/vhnegrisoli/curso-udemy-microsservicos-padrao-saga-orquestrado/), porém,
+ao final do curso, foi também incluída uma seção de aula bônus, ensinando aos alunos a como
+converter a arquitetura desenvolvida em um Padrão Saga Coreografado, para endenter a implementação e execução de Coreografia na Saga.
+
+Para acessar o curso na plataforma, basta acessar esta URL: https://www.udemy.com/course/arquitetura-de-microsservicos-padrao-saga-orquestrado/
+
+![Arquitetura](Conte%C3%BAdos/Imagem%20Curso.png)
 
 ### Sumário:
 
@@ -35,7 +44,7 @@
 * **docker-compose**
 * **Redpanda Console**
 
-# Ferramentas utilizadas
+## Ferramentas utilizadas
 
 [Voltar ao início](#sum%C3%A1rio)
 
@@ -43,18 +52,17 @@
 * **Docker**
 * **Gradle**
 
-# Arquitetura Proposta
+## Arquitetura Proposta
 
 [Voltar ao início](#sum%C3%A1rio)
 
 No curso, desenvolveremos a seguinte aquitetura:
 
-![Arquitetura](https://github.com/HenriqueSilvaIt/Assets/blob/main/l/Arquitetura%20Proposta.png)
+![Arquitetura](Conte%C3%BAdos/Arquitetura%20Proposta.png)
 
-Em nossa arquitetura, teremos 5 serviços:
+Em nossa arquitetura, teremos 4 serviços:
 
 * **Order-Service**: microsserviço responsável apenas por gerar um pedido inicial, e receber uma notificação. Aqui que teremos endpoints REST para inciar o processo e recuperar os dados dos eventos. O banco de dados utilizado será o MongoDB.
-* **Orchestrator-Service**: microsserviço responsável por orquestrar todo o fluxo de execução da Saga, ele que saberá qual microsserviço foi executado e em qual estado, e para qual será o próximo microsserviço a ser enviado, este microsserviço também irá salvar o processo dos eventos. Este serviço não possui banco de dados.
 * **Product-Validation-Service**: microsserviço responsável por validar se o produto informado no pedido existe e está válido. Este microsserviço guardará a validação de um produto para o ID de um pedido. O banco de dados utilizado será o PostgreSQL.
 * **Payment-Service**: microsserviço responsável por realizar um pagamento com base nos valores unitários e quantidades informadas no pedido. Este microsserviço guardará a informação de pagamento de um pedido. O banco de dados utilizado será o PostgreSQL.
 * **Inventory-Service**: microsserviço responsável por realizar a baixa do estoque dos produtos de um pedido. Este microsserviço guardará a informação da baixa de um produto para o ID de um pedido. O banco de dados utilizado será o PostgreSQL.
@@ -145,12 +153,11 @@ http://localhost:3000/swagger-ui.html
 
 Você chegará nesta página:
 
-![Swagger](https://github.com/HenriqueSilvaIt/Assets/blob/main/l/Documentacao.png)
+![Swagger](Conte%C3%BAdos/Documentacao.png)
 
 As aplicações executarão nas seguintes portas:
 
 * Order-Service: 3000
-* Orchestrator-Service: 8080
 * Product-Validation-Service: 8090
 * Payment-Service: 8091
 * Inventory-Service: 8092
@@ -171,7 +178,7 @@ http://localhost:8081
 
 Você chegará nesta página:
 
-![Redpanda](https://github.com/HenriqueSilvaIt/Assets/blob/main/l/Redpanda%20Kafka.png)
+![Redpanda](Conte%C3%BAdos/Redpanda%20Kafka.png)
 
 ## Dados da API
 
@@ -190,7 +197,7 @@ Existem 3 produtos iniciais cadastrados no serviço `product-validation-service`
 * **MOVIES** (5 em estoque)
 * **MUSIC** (9 em estoque)
 
-### Endpoint para iniciar a saga:
+### Endpoint para iniciar a saga
 
 [Voltar ao nível anterior](#dados-da-api)
 
@@ -223,7 +230,7 @@ Resposta:
 
 ```json
 {
-  "id": "64429e987a8b646915b3735f",
+  "id": "65235b034a6fa17dc661679b",
   "products": [
     {
       "product": {
@@ -240,30 +247,32 @@ Resposta:
       "quantity": 1
     }
   ],
-  "createdAt": "2023-04-21T14:32:56.335943085",
-  "transactionId": "1682087576536_99d2ca6c-f074-41a6-92e0-21700148b519"
+  "createdAt": "2023-10-09T01:44:35.655",
+  "transactionId": "1696815875655_44ae5c2d-5549-427f-861c-9eef24676b7c",
+  "totalAmount": 0,
+  "totalItems": 0
 }
 ```
 
-### Endpoint para visualizar a saga:
+### Endpoint para visualizar a saga
 
 [Voltar ao nível anterior](#dados-da-api)
 
 É possível recuperar os dados da saga pelo **orderId** ou pelo **transactionId**, o resultado será o mesmo:
 
-**GET** http://localhost:3000/api/event?orderId=64429e987a8b646915b3735f
+**GET** http://localhost:3000/api/event?orderId=65235b034a6fa17dc661679b
 
-**GET** http://localhost:3000/api/event?transactionId=1682087576536_99d2ca6c-f074-41a6-92e0-21700148b519
+**GET** http://localhost:3000/api/event?transactionId=1696815875655_44ae5c2d-5549-427f-861c-9eef24676b7c
 
 Resposta:
 
 ```json
 {
-  "id": "64429e9a7a8b646915b37360",
-  "transactionId": "1682087576536_99d2ca6c-f074-41a6-92e0-21700148b519",
-  "orderId": "64429e987a8b646915b3735f",
+  "id": "65235b034a6fa17dc661679c",
+  "transactionId": "1696815875655_44ae5c2d-5549-427f-861c-9eef24676b7c",
+  "orderId": "65235b034a6fa17dc661679b",
   "payload": {
-    "id": "64429e987a8b646915b3735f",
+    "id": "65235b034a6fa17dc661679b",
     "products": [
       {
         "product": {
@@ -280,52 +289,50 @@ Resposta:
         "quantity": 1
       }
     ],
-    "totalAmount": 56.40,
-    "totalItems": 4,
-    "createdAt": "2023-04-21T14:32:56.335943085",
-    "transactionId": "1682087576536_99d2ca6c-f074-41a6-92e0-21700148b519"
+    "createdAt": "2023-10-09T01:44:35.655",
+    "transactionId": "1696815875655_44ae5c2d-5549-427f-861c-9eef24676b7c",
+    "totalAmount": 56.4,
+    "totalItems": 4
   },
-  "source": "ORCHESTRATOR",
+  "source": "ORDER_SERVICE",
   "status": "SUCCESS",
   "eventHistory": [
     {
-      "source": "ORCHESTRATOR",
+      "source": "ORDER_SERVICE",
       "status": "SUCCESS",
       "message": "Saga started!",
-      "createdAt": "2023-04-21T14:32:56.78770516"
+      "createdAt": "2023-10-09T01:44:35.728"
     },
     {
       "source": "PRODUCT_VALIDATION_SERVICE",
       "status": "SUCCESS",
       "message": "Products are validated successfully!",
-      "createdAt": "2023-04-21T14:32:57.169378616"
+      "createdAt": "2023-10-09T01:44:36.196"
     },
     {
       "source": "PAYMENT_SERVICE",
       "status": "SUCCESS",
       "message": "Payment realized successfully!",
-      "createdAt": "2023-04-21T14:32:57.617624655"
+      "createdAt": "2023-10-09T01:44:36.639"
     },
     {
       "source": "INVENTORY_SERVICE",
       "status": "SUCCESS",
       "message": "Inventory updated successfully!",
-      "createdAt": "2023-04-21T14:32:58.139176809"
+      "createdAt": "2023-10-09T01:44:37.117"
     },
     {
-      "source": "ORCHESTRATOR",
+      "source": "ORDER_SERVICE",
       "status": "SUCCESS",
       "message": "Saga finished successfully!",
-      "createdAt": "2023-04-21T14:32:58.248630293"
+      "createdAt": "2023-10-09T01:44:37.21"
     }
   ],
-  "createdAt": "2023-04-21T14:32:58.28"
+  "createdAt": "2023-10-09T01:44:37.209"
 }
 ```
 
 ### Acesso ao MongoDB
-
-[Voltar ao início](#sum%C3%A1rio)
 
 Para conectar-se ao MongoDB via linha de comando (cli) diretamente do docker-compose, basta executar o comando abaixo:
 
@@ -349,11 +356,11 @@ Para realizar queries e validar se os dados existem:
 
 **db.event.find()**
 
-**db.order.find(id=ObjectId("65006786d715e21bd38d1634"))**
+**db.order.find(id=ObjectId("65235b034a6fa17dc661679b"))**
 
 **db.order.find({ "products.product.code": "COMIC_BOOKS"})**
 
 ## Autor
 
-### Henrique Oliveira
-
+### Victor Hugo Negrisoli
+### Desenvolvedor de Software Back-End
